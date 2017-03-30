@@ -1,392 +1,295 @@
-#Vanilla Javascript
-## Functions
-  ~~~
-  nameOfFunction();
-  ~~~
-
-### Types
-  ~~~
-  Functions of JS: alert();
-  Functions of Customize: iLikeThisFunction();
-  ~~~
-
-
 ## Variables
-  ~~~
-  1. myVar
-  2. _myVar
-  3. $myVar
-  ~~~
+**You can write var with letters, numbers, underscores and dollar sign, but the first sign had to be a letter or dollar sign.**
+
+```javascript
+
+// Examples name of vars
+var n2_0 = 'red';
+var myNum = 30;
+var &width = 300;
+
+// type number
+var i = 35;
+
+// type string
+var i = 'nice var';
+
+```
+
+## Dom Manipulation
+
+**Handled HTML Elements**
+
+```javascript
+// ID
+document.getElementById("nameOfID");
+// TAG HTML
+document.getElementsByTagName("p");
+// CLASS CSS
+document.getElementsByClassName("nameOfClass");
+
+```
+
+**Elements of document**
+
+``` javascript
+// BODY
+document.body
+// TITLE'S DOM
+document.title
+// ALL IMAGES'S DOM
+document.images
+// ALL LINKS'S DOM
+document.links
+// ALL SCRIPTS'S DOM
+document.scripts
+```
+
+## Style
+**Apply propeties css by js **
+*element + style + propertie css + value css*
+
+``` javascript
+document.body.style.background = "red";
+
+```
 
 
-# Vanilla Javascript vs jQuery
-## DOM Selectors
+## Functions
+**Auto-execute javascript functions AND call them later**
 
-### ID
-  ~~~
-  // JS => All
-  getElementById('nameOfID');
+```javascript
+(function(){
 
-  // JQUERY
-  $('#nameOfID');
-  ~~~
+// here your functions auto-executed
 
-### Class
-  ~~~
-  // JS => +IE9
-  document.getElementsByClassName('nameClass');
+}());
 
-  // JQUERY
-  $('.nameClass');
-  ~~~
+```
 
-### Tagname
-  ~~~
-  // JS => +IE6
-  document.getElementsByTagName('h1');
+## Arrays
+**Multiple values in one var.**
 
-  // JQUERY
-  $('h1');
-  ~~~
+```javascript
+// Array
+var colors = ['red', 'blue' 'purple']
+```
 
-### Others
-  ~~~
-  // JS => +IE8
-  document.querySelector('.nameClass');
-  ~~~
+Position of a element in array
 
+```javascript
+// Choose purple element of this array
+var colors = ['red', 'blue' 'purple'];
+colors[2];
+```
 
-## DOM Manipulation
-### Adding content
-  ~~~
-  // JS => ALL
-  document.getElementById("container").innerHTML += "<p>more content</p>";
+Change value of a element of array
 
-  // JQUERY
-  $('#container').append("<p>more content</p>");
-  ~~~
+```javascript
+// Purple will be green
+var colors = ['red', 'blue' 'purple'];
+colors[2] = 'green';
+```
 
-###  Remove element from the DOM
-  ~~~
-  // JS => ALL
-  var c = document.getElementById("container");
-  c.parentNode.removeChild(c);
+How many values are in an Array
 
-  // JQUERY
-  $("#container").remove();
-  ~~~
+```javascript
+// length propertie
+var colors = ['red', 'blue', 'purple', 'cyan', 'skyblue'];
+colors.length;
+```
 
+Show the inverse values of an Array
 
-# Good practices with jQuery
+```javascript
+// reverse propertie
+var colors = ['red', 'blue', 'purple', 'cyan', 'skyblue'];
+colors.reverse();
+```
 
-## Naming jQuery object starting with $
-  ~~~
-  // NOT
-  var form = $('#contactForm');
- 
-  // YES
-  var $form = $('#contactForm');
-  ~~~
-## Using $this
-  ~~~
-  // NOT
-  $('li').each(function() {
-  	$(this).on('click', function() {
-      	$(this).addClass('active');
-  	});
-  });
+## Loops
+**Repite acctions**
 
-  // YES
-  $('li').each(function() {
-   	var $this = $(this);
-   	$this.on('click', function() {
-        	$this.addClass('active');
-   	});
-  });
-  ~~~
+### The FOR loop
 
-## Caching jQuery objects
-
-  ~~~
-  // NOT
-  $('.menu li').each(function() { ... });
-  $('.menu li').each(function() { ... });
-
-  // YES
-  var $items = $('.menu li');
-  $items.each(function() { ... });
-
-  // REUSE IT
-  $items.each(function() { ... });
-  ~~~
-
-## Chaining method
-  ~~~
-  // NOT
-  var $a = $('#about');
-  $a.hide();
-  $a.addClass();
-  $a.fadeIn();
-  $a.hide();
-
-  // YES
-  $('#about').hide().addClass().fadeIn().hide();
-
-  // BETTER
-  $('#about')
-  	.hide()
-  	.addClass()
-  	.fadeIn()
-  	.hide();
-
-  ~~~
-## Creating new element
-  ~~~
-  // NOT
-  var $hidden = $('<input class="form-control" type="hidden" name="foo" value="bar" />').appendTo('#form');
-
-  // YES
-  var $hidden = $('<input/>')
-              	.addClass('form-control')
-              	.attr('type', 'hidden')
-              	.attr('name', 'foo')
-              	.val('bar')
-              	.appendTo('#form');
-   ~~~
-   
-## Optimizing selectors
-
-### Using ID selector
-  ~~~
-  // NOT
-  $('#wrapper #inner');
-  $('div#inner');
-  $('.wrapper #inner');
-
-  // YES
-  $('#inner');
-  ~~~
-
-### Using ID-based selector
-  ~~~
-  // NOT
-  $('#container .row');
-
-  // FASTER
-  $('#container').find('.row');
-  ~~~
-
-### Avoid implied universal selectors
-  ~~~
-  // NOT
-  $('.category :radio');
-
-  // YES
-  $('.category input:radio');
-  ~~~
-
-### Using filtering methods instead of pseudo selectors
-  ~~~
-  // NOT
-  $('.item:first')
-
-  // YES
-  $('.item').eq(0)
-  ~~~
-
-### Using custom namespace for events
-  ~~~
-  // NOT
-  $('#saveButton').on('click.bv', function() {
-  	...
-  });
-
-  // YES
-  // Later, it's possible to unbind the event handler
-  $('#saveButton').off('click.bv');
-  ~~~
-
-### Don't put all parameters in Ajax URL
-  ~~~
-  // NOT
-  $.ajax({
-  	url: '/remote/url?param1=value1&amp;param2=value2...'
-  }});
-
-  // YES
-  $.ajax({
-  	url: '/remote/url',
-  	data: {
-      	param1: 'value1',
-      	param2: 'value2'
-      	...
-  	}
-  })
-  ~~~
-
-### Use string concatenation or array.join() over .append()
-  ~~~
-  // NOT
-  var $myList = $("#list");
-  for(var i = 0; i < 10000; i++){
-  	$myList.append("<li>"+i+"</li>");
-  }
-  // FASTER
-  var superArray = [];
-  for(var i = 0; i < 10000; i++){
-  	superArray[i] = "<li>"+i+"</li>";
-  }
-  $myList.html(superArray.join(''));
-  ~~~
-
-### Document ready event handler should not be an anonymous function
-  ~~~
-  // NOT // You can never reuse or write a test for this function.
-  $(function(){ ... });
-
-  // YES
-  $(initPage); // or $(document).ready(initPage);
-  function initPage(){
-  	// Page load event where you can initialize values and call other initializers.
-  }
-  ~~~
-
-### Sample Ajax Template
-  ~~~
-  var jqxhr = $.ajax({
-  	url: url,
-  	type: "GET", // default is GET but you can use other verbs based on your needs.
-  	cache: true, // default is true, but false for dataType 'script' and 'jsonp', so set it on need basis.
-  	data: {}, // add your request parameters in the data object.
-  	dataType: "json", // specify the dataType for future reference
-  	jsonp: "callback", // only specify this to match the name of callback parameter your API is expecting for JSONP requests.
-  	statusCode: { // if you want to handle specific error codes, use the status code mapping settings.
-      	404: handler404,
-      	500: handler500
-  	}
-  });
-  jqxhr.done(successHandler);
-  jqxhr.fail(failureHandler);
-  ~~~
-
-### Use Object literals for parameters
-  ~~~
-  // NOT // 3 calls to attr()
-  $myLink.attr("href", "#").attr("title", "my link").attr("rel", "external");
-
-  // BETTER // only 1 call to attr()
-  $myLink.attr({
-  	href: "#",
-  	title: "my link",
-  	rel: "external"
-  });
-  ~~~
-
-### Others
-  ~~~
-  // OK
-   $("document").ready(function() {
-  	// The DOM is ready!
-  	// The rest of the code goes here
-	});
-    
-  // BETTER
-  $(function() {
-  	// The DOM is ready!
-  	// The rest of the code goes here
-	});
-  ~~~
-
-### Save loop's length
-  ~~~
-  var myLength = myArray.length;
-
-  for (var i = 0; i < myLength; i++) {
-  	// do stuff
-  }
-  ~~~
-
-### Add content in loop
-  ~~~
-  // NOT
-  $.each(myArray, function(i, item) {
- 	var newListItem = '<li>' + item + '</li>';
- 	$('#ballers').append(newListItem);
-  });
-
-  // BETTER
-  var frag = document.createDocumentFragment();
-  $.each(myArray, function(i, item) {
-  	var newListItem = '<li>' + item + '</li>';
-  	frag.appendChild(newListItem);
-  });
-  $('#ballers')[0].appendChild(frag);
-
-  // COOL
-  var myHtml = '';
-  $.each(myArray, function(i, item) {
-  	myHtml += '<li>' + item + '</li>';
-  });
-  $('#ballers').html(myHtml);
-  ~~~
-
-### Don't repeat yourselft
-  ~~~
-  // NOT
-  if ($eventfade.data('currently') != 'showing') {
-  	$eventfade.stop();
-  }
-  if ($eventhover.data('currently') != 'showing') {
-  	$eventhover.stop();
-  }
-  if ($spans.data('currently') != 'showing') {
-  	$spans.stop();
-  }
-
-  // YES
-  var $elems = [$eventfade, $eventhover, $spans];
-  $.each($elems, function(i,elem) {
-  	if (elem.data('currently') != 'showing') {
-      	elem.stop();
-  	}
-  });
-  ~~~
-
-### Beware Anonymous Functions
-  ~~~
-  // NOT
-  $( document ).ready(function() {
-  	$( "#magic" ).click(function( event ) {
-      	$( "#yayeffects" ).slideUp(function() {
-          	// ...
-      	});
-  	});
-  	$( "#happiness" ).load( url + " #unicorns", function() {
-      	// ...
-  	});
-  });
-
-  // BETTER
-  var PI = {
-  	onReady: function() {
-      	$( "#magic" ).click( PI.candyMtn );
-      	$( "#happiness" ).load( PI.url + " #unicorns", PI.unicornCb );
-  	},
-  	candyMtn: function( event ) {
-      	$( "#yayeffects" ).slideUp( PI.slideCb );
-  	},
-  	slideCb: function() { ... },
-  	unicornCb: function() { ... }
-  };
-  $( document ).ready( PI.onReady );
-  ~~~
+```javascript
+// Repeat x times an action
+for (var i=0; i<10; i++ ){
+   console.log('this time is ' + i);
+};
+```
 
 
----
-*Reference*
+```javascript
+// Execute a provided function once per array element.
+var funArray = [11, 27, 38, 42, 57];
+for (var i=0; i < funArray.length; i++ ){
+   console.log(funArray[i]);
+};
+```
 
-    1. <http://www.sitepoint.com/jquery-vs-raw-javascript-1-dom-forms/>
-    2. <http://formvalidation.io/news/best-jquery-practices/>
-    3. <http://lab.abhinayrathore.com/jquery-standards/>
+### The While loop
+
+```javascript
+// Repeat an action while a condition
+var i = 0; 
+while ( i < 10) { 
+   console.log(i++)
+}
+```
+
+### The forEach loop
+
+```javascript
+// Execute a provided function once per array element.
+var funArray = [11, 27, 38, 42, 57];
+funArray.forEach( function(i) {
+   console.log(i);
+});
+```
+
+## Conditionals
+**Conditionals power**
+
+### if
+
+```javascript
+// If it's equal
+var i = 2;
+if(i == 2){
+console.log('yes,' +i+ ' is equal 2');
+}
+```
+
+```javascript
+// If it's not equal
+var i = 2;
+if(i != 4){
+console.log('You are right,' +i+ ' is not equal 4');
+};
+```
+
+### if else
+
+```javascript
+// If it's not equal
+var i = 4;
+if(i != 4){
+  console.log('You are right, ' +i+ ' is not equal 4');
+} else {
+  console.log('You are wrong, ' +i+ ' is equal 4');
+};
+```
+
+```javascript
+// If X is not equal or more than X
+var i = 3;
+if(i != 4 || i < 4){
+  console.log('Ummm, ' +i+ ' is not equal 4 or it is more than 4');
+} else {
+  console.log('Ummm, ' +i+ ' is equal 4');
+};
+```
+
+### switch case
+**Matching the expression's value to a case clause, and executes statements associated with that case.**
+
+```javascript
+var cars = 'audi';
+switch(cars){
+   case 'audi':
+     console.log('It is A4');
+	 break;
+	 case 'ford':
+     console.log('It is my car Ford');
+	 break;
+	 case 'ferrari':
+     console.log('It is the slow car of Fernando Alonso');
+	 break;
+}
+```
+
+## Objects
+
+### Simple Object
+```javascript
+var person = {
+  name: 'mike',
+	age: 20,
+}
+console.log(person.name);
+```
+
+Simple Object with Array
+
+```javascript
+var person = {
+  name: 'mike',
+	age: 20,
+	daughters: ['Linda', 'Maggie'],
+}
+console.log(person.daughters[1]);
+```
+
+### Complex Object
+
+Object with other object inside
+
+```javascript
+var person = {
+  name: 'mike',
+	age: 20,
+	address: {
+	   street: 'Velazquez 10',
+		 city: 'Madrid'
+	}
+}
+console.log(person.address.city);
+```
 
 
+# Tips
+
+**JQUERY: Multiple CSS()**
+
+```javascript
+$selector.css({
+   'font-size' : '10px',
+   'width' : '30px',
+   'height' : '10px'
+});
+```
+
+
+**JS: default value to an undefined parameter**
+
+```javascript
+function functionWithDefaultValue(b){
+    b = b || 123;
+    return b;
+}
+
+// Result without parameter -----> Result 123
+functionWithDefaultValue()   
+// Result with parameter    -----> Result 66
+functionWithDefaultValue(66) 
+
+```
+
+
+**JS: Return multiple values from a function**
+
+```javascript
+function operation(val1, val2){
+	sum = val1 + val2;
+	sub = val1 - val2;
+	return {
+		sum: sum, 
+		sub: sub
+	}; 
+};
+console.log( operation(20,5).sum ); // 25
+console.log( operation(20,5).sub ); // 15
+
+
+```
